@@ -7,8 +7,13 @@
 
     $sql_check1 = "SELECT author FROM board WHERE idx=$post_id";
     $res_check1 = $mysqli->query($sql_check1);
-    $row = $res_check1-> fetch_assoc();
-
+    if ($res_check1 && $res_check1->num_rows > 0) {
+        $row = $res_check1->fetch_assoc();
+    } else {
+        echo "<script>alert('해당 게시글이 존재하지 않습니다.'); history.back();</script>";
+        exit;
+    }
+    
     if($user_id === $row['author']){
         echo "<script>
                 alert('자신의 게시글에는 좋아요를 누를 수 없습니다.');
