@@ -7,10 +7,10 @@
         $page = 1;
     }
 
-    $cate = $_GET['cate'];
-    $search = $_GET['search'];
-    $start_date = $_GET['start_date'];
-    $end_date = $_GET['end_date'];
+    $cate = $_GET['cate'] ?? "";
+    $search = $_GET['search'] ?? "";
+    $start_date = $_GET['start_date'] ?? "";
+    $end_date = $_GET['end_date'] ?? "";
     
     //게시글 개수체크
     if($search && $start_date && $end_date){

@@ -2,16 +2,22 @@
     require_once $_SERVER['DOCUMENT_ROOT'].'/php/db.php';
     session_start();
 
+    $user_id = $_SESSION['user_id'];
+
     $post_id = $_GET['idx'];
     $sql = "SELECT * FROM board WHERE idx=$post_id";
     $result = $mysqli->query($sql);
-    $row = $result->fetch_assoc();
 
-    $user_id = $_SESSION['user_id'];
+    if ($result && $result->num_rows >0){
+        $row = $result->fetch_assoc();
 
-    if($user_id != $row['author']){
-	    $sql_views = "UPDATE board SET  views = views + 1 WHERE idx=$post_id";
-	    $result_views = $mysqli->query($sql_views);
+        if($user_id != $row['author']){
+	        $sql_views = "UPDATE board SET  views = views + 1 WHERE idx=$post_id";
+	        $result_views = $mysqli->query($sql_views);
+        }
+    } else {
+        echo "해당 게시글이 존재하지 않습니다.";
+        exit;
     }
 
     $likes = false;
